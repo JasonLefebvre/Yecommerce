@@ -3,3 +3,35 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+home:
+    path: /
+    controller: App\Controller\HomeController:: # TODO : ce que renvoie la classe
+
+sell:
+    path: /sell
+    controller: App\Controller\SellController:: # TODO : ce que renvoie la classe
+
+detail:
+    path: /detail
+    controller: App\Controller\DetailController:: # TODO : ce que renvoie la classe
+
+cart:
+    path: /cart
+    controller: App\Controller\CartController:: # TODO : ce que renvoie la classe
+
+validate:
+    path: /cart/validate
+    controller: App\Controller\ValidateController:: # TODO : ce que renvoie la classe
+
+edit:
+    path: /edit
+    controller: App\Controller\EditController:: # TODO : ce que renvoie la classe
+
+account:
+    path: /account
+    controller: App\Controller\AccountController:: # TODO : ce que renvoie la classe
+
+admin:
+    path: /admin
+    controller: App\Controller\AdminController:: # TODO : ce que renvoie la classe
