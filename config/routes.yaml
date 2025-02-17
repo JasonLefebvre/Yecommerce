@@ -35,3 +35,11 @@ account:
 admin:
     path: /admin
     controller: App\Controller\AdminController:: # TODO : ce que renvoie la classe
+
+login:
+    path: /login
+    controller: App\Controller\LoginController:: # TODO : ce que renvoie la classe
+
+register:
+    path: /register
+    controller: App\Controller\RegisterController:: # TODO :ce que renvoie la classe
