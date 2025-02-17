@@ -10,36 +10,36 @@ home:
 
 sell:
     path: /sell
-    controller: App\Controller\SellController:: # TODO : ce que renvoie la classe
+    controller: App\Controller\SellController::index # TODO : ce que renvoie la classe
 
 detail:
     path: /detail
-    controller: App\Controller\DetailController:: # TODO : ce que renvoie la classe
+    controller: App\Controller\DetailController::index # TODO : ce que renvoie la classe
 
 cart:
     path: /cart
-    controller: App\Controller\CartController:: # TODO : ce que renvoie la classe
+    controller: App\Controller\CartController::index # TODO : ce que renvoie la classe
 
 validate:
     path: /cart/validate
-    controller: App\Controller\ValidateController:: # TODO : ce que renvoie la classe
+    controller: App\Controller\ValidateController::index # TODO : ce que renvoie la classe
 
 edit:
     path: /edit
-    controller: App\Controller\EditController:: # TODO : ce que renvoie la classe
+    controller: App\Controller\EditController::index # TODO : ce que renvoie la classe
 
 account:
     path: /account
-    controller: App\Controller\AccountController:: # TODO : ce que renvoie la classe
+    controller: App\Controller\AccountController::index # TODO : ce que renvoie la classe
 
 admin:
     path: /admin
-    controller: App\Controller\AdminController:: # TODO : ce que renvoie la classe
+    controller: App\Controller\AdminController::index # TODO : ce que renvoie la classe
 
 login:
     path: /login
-    controller: App\Controller\LoginController:: # TODO : ce que renvoie la classe
+    controller: App\Controller\LoginController::index # TODO : ce que renvoie la classe
 
 register:
     path: /register
-    controller: App\Controller\RegisterController:: # TODO :ce que renvoie la classe
+    controller: App\Controller\RegisterController::index # TODO :ce que renvoie la classe

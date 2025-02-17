@@ -11,6 +11,6 @@ class SellController extends AbstractController
     public function index(): Response
     {
         $test = "chose";
-        return $this->render('index.html.twig', ["test" => $test]);
+        return $this->render('sell.html.twig', ["test" => $test]);
     }
 }

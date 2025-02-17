@@ -12,6 +12,6 @@ class EditController extends AbstractController
     public function index(): Response
     {
         $test = "chose";
-        return $this->render('index.html.twig', ["test" => $test]);
+        return $this->render('edit.html.twig', ["test" => $test]);
     }
 }

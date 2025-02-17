@@ -11,6 +11,6 @@ class AccountController extends AbstractController
     public function index(): Response
     {
         $test = "chose";
-        return $this->render('index.html.twig', ["test" => $test]);
+        return $this->render('account.html.twig', ["test" => $test]);
     }
 }
