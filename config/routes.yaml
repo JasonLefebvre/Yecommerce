@@ -6,7 +6,7 @@ controllers:
 
 home:
     path: /
-    controller: App\Controller\HomeController:: # TODO : ce que renvoie la classe
+    controller: App\Controller\HomeController::index # TODO : ce que renvoie la classe
 
 sell:
     path: /sell
