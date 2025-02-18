@@ -6,7 +6,7 @@ use App\Repository\CartRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CartRepository::class)]
-class Cart
+class Cart implements \Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -48,5 +48,11 @@ class Cart
         $this->article = $article;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return (string)$this;
     }
 }

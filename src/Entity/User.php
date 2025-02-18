@@ -6,7 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements \Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -106,5 +106,11 @@ class User
         $this->role = $role;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->username;
     }
 }

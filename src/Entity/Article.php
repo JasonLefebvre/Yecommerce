@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
-class Article
+class Article implements \Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -93,5 +93,11 @@ class Article
         $this->auteur = $auteur;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->nom;
     }
 }

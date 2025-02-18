@@ -14,7 +14,7 @@ sell:
 
 detail:
     path: /detail
-    controller: App\Controller\DetailController::index # TODO : ce que renvoie la classe
+    controller: App\Controller\DetailController::showArticles # TODO : ce que renvoie la classe
 
 cart:
     path: /cart
