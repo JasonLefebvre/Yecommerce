@@ -36,10 +36,3 @@ admin:
     path: /admin
     controller: App\Controller\AdminController::index # TODO : ce que renvoie la classe
 
-login:
-    path: /login
-    controller: App\Controller\LoginController::index # TODO : ce que renvoie la classe
-
-register:
-    path: /register
-    controller: App\Controller\RegisterController::index # TODO :ce que renvoie la classe
