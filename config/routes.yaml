@@ -30,7 +30,7 @@ edit:
 
 account:
     path: /account
-    controller: App\Controller\AccountController::index # TODO : ce que renvoie la classe
+    controller: App\Controller\AccountController::account # TODO : ce que renvoie la classe
 
 admin:
     path: /admin
