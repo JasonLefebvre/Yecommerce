@@ -36,3 +36,6 @@ admin:
     path: /admin
     controller: App\Controller\AdminController::index # TODO : ce que renvoie la classe
 
+register:
+    path: /register
+    controller: App\Controller\RegisterController::register
