@@ -14,7 +14,32 @@
         {% endblock %}
     {% endblock %}
 </head>
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-left mb-2 mb-lg-0 text-white text-decoration-none">
+          LePireCoin
+        </a>
 
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="/" class="nav-link px-2 text-white">Accueil</a></li>
+          <li><a href="/sell" class="nav-link px-2 text-white">Vendre</a></li>
+          <li><a href="/cart" class="nav-link px-2 text-white">Panier</a></li>
+          <li><a href="/account" class="nav-link px-2 text-white">Compte</a></li>
+        </ul>
+
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+        </form>
+
+        <div class="text-end">
+          <button type="button" action="/Login" class="btn btn-outline-light me-2" onclick="window.location.href='{{ path('app_login') }}'">Connexion</button>
+          <button type="button" class="btn btn-warning" onclick="window.location.href='{{ path('app_register') }}'">Inscription</button>
+
+        </div>
+      </div>
+    </div>
+  </header>
 <body>
     <div class="container mt-5">
         <form class="row justify-content-center" method="post">
@@ -31,7 +56,7 @@
                             <input type="password" class="form-control" name="_password" id="inputPassword" placeholer="Password">
                             <label for="inputPassword"> Mot de passe </label>
                         </div> 
-                        <button class="w-100 btn btn-lg btn-primary" type="submit">Se connecter</button>
+                        <button class="w-100 btn btn-lg btn-warning" type="submit">Se connecter</button>
 
                         <p>Vous n'avez de compte ? Allez vous <a href="/register">s'inscrire</a></p>
                     </div>
