@@ -3,13 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
-class User implements UserInterface, PasswordAuthenticatedUserInterface, \Stringable
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -33,6 +34,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
 
     #[ORM\Column(length: 255)]
     private ?string $username = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $solde = null;
+
+    #[ORM\Column(type: Types::BLOB, nullable: true)]
+    private $profilPicture = null;
 
     public function getId(): ?int
     {
@@ -109,11 +116,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
         // $this->plainPassword = null;
     }
 
-    public function __toString(): string
-    {
-        return $this->email;
-    }
-
     public function getUsername(): ?string
     {
         return $this->username;
@@ -124,5 +126,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
         $this->username = $username;
 
         return $this;
+    }
+
+    public function getSolde(): ?float
+    {
+        return $this->solde;
+    }
+
+    public function setSolde(?float $solde): static
+    {
+        $this->solde = $solde;
+
+        return $this;
+    }
+
+    public function getProfilPicture()
+    {
+        return $this->profilPicture;
+    }
+
+    public function setProfilPicture($profilPicture): static
+    {
+        $this->profilPicture = $profilPicture;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->email;
     }
 }

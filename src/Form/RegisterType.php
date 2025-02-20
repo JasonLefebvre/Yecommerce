@@ -19,6 +19,7 @@ class RegisterType extends AbstractType
             ->add('username', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Nom d\'utilisateur',
+                    'class' => 'form-control'
                 ],
                 'required' => true,
                 'label' => 'Nom d\'utilisateur'
@@ -28,6 +29,7 @@ class RegisterType extends AbstractType
             ->add('email', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Email',
+                    'class' => 'form-control'
                 ],
                 'required' => true
             ])
@@ -37,6 +39,7 @@ class RegisterType extends AbstractType
                 'first_options' => [
                     'attr' => [
                         'placeholder' => 'Mot de passe',
+                        'class' => 'form-control'
                     ],
                     'label' => 'Mot de passe'
 
@@ -44,6 +47,7 @@ class RegisterType extends AbstractType
                 'second_options' => [
                     'attr' => [
                         'placeholder' => 'Confirmer mot de passe',
+                        'class' => 'form-control'
                     ],
                     'label' => 'Confirmer le mot de passe'
                 ]
