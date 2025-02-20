@@ -42,8 +42,11 @@ class ArticleRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    public function findByAuthor($author): array
+    public function findByAuthor(EntityManagerInterface $entityManager): array
     {
-        return $this->findBy(["auteur" => $author]);
+        $query = $entityManager->createQuery(
+            'SELECT a, u FROM App\Entity\Article a JOIN App\Entity\User u WITH a.auteur_id = u.id'
+        );
+        return $query->getResult();
     }
 }

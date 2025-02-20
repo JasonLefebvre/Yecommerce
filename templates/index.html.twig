@@ -48,8 +48,8 @@
                 <div>{{ article.description }}</div>
                 <div>{{ article.prix }}€</div>
                 <div>{{ article.datePublication|date("d/m/Y") }}</div>
-                <img src="{{ article.auteur.profilPicture }}" alt="pdp">
-                <div><a href="/account/{{ article.auteur.id }}">{{ article.auteur.username }}</a></div>
+{#                <img src="{{ article.auteur.profilPicture }}" alt="pdp">#}
+{#                <div><a href="/account/{{ article.auteur.id }}">{{ article.auteur.username }}</a></div>#}
             </div>
             {% endfor %}
         </div>

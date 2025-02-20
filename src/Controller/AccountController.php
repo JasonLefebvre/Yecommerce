@@ -28,7 +28,7 @@ class AccountController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $articles = $articleRepository->findByAuthor($user);
+        $articles = $articleRepository->findBy(["auteur_id" => $id]);
         return $this->render('account.html.twig', ['user' => $user,  'articles' => $articles]);
     }
 }

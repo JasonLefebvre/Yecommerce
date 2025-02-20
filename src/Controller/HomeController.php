@@ -14,7 +14,8 @@ class HomeController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
-        $articles = $entityManager->getRepository(Article::class)->findBy([], ['datePublication' => 'DESC']);
+
+        $articles = $entityManager->getRepository(Article::class)->findAll();
         return $this->render('index.html.twig', ["articles" => $articles, "user" => $user]);
     }
 }
