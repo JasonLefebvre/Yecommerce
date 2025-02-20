@@ -30,6 +30,9 @@ class Article implements \Stringable
     #[ORM\JoinColumn(nullable: false)]
     private ?User $auteur = null;
 
+    #[ORM\Column(type: Types::BLOB)]
+    private $picture = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -99,5 +102,17 @@ class Article implements \Stringable
     {
         // TODO: Implement __toString() method.
         return $this->nom;
+    }
+
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    public function setPicture($picture): static
+    {
+        $this->picture = $picture;
+
+        return $this;
     }
 }
