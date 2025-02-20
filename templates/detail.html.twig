@@ -7,6 +7,8 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
     <title>Lepirecoin</title>
     
+
+    
     {% block javascripts %}
         {% block importmap %}
             {{ importmap('app') }}
@@ -14,7 +16,7 @@
     {% endblock %}
 </head>
 
-{% include 'navbar.hmtl.twig' %}
+{% include 'navbar.html.twig' %}
 
 <body>
     {% block body %}
@@ -27,8 +29,11 @@
                     <h1 class="card-title">{{ article.nom }}</h1>
                     <p class="card-text">{{ article.description }}</p>
                     <p class="card-text"><strong>Prix :</strong> {{ article.prix }} €</p>
-                    <p class="card-text"><strong>Vendu par :</strong> {{ user.username }}</p>
+                    <p class="card-text"><strong>Vendu par :</strong> <a href="/account/{{ user.id }}">{{ user.username }}</a></p>
                     <p class="card-text"><strong>Date de publication :</strong> {{ article.datePublication|date('d/m/Y H:i') }}</p>
+                    <form action="{{ path('cart_add', {'id': article.id}) }}" method="post">
+                            <button type="submit" class="btn btn-primary">Ajouter au panier</button>
+                        </form>
                 </div>
             </div>
         </div>

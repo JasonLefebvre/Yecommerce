@@ -21,7 +21,7 @@ class AccountController extends AbstractController
         }
 
         $articles = $articleRepository->findBy(["auteur_id" => $user->getId()]);
-        return $this->render('account.html.twig', ['user' => $user,  'articles' => $articles]);
+        return $this->render('account.html.twig', ['user' => $user, 'articles' => $articles]);
     }
 
     #[Route('/account/{id}', name: 'accountPerId')]
@@ -33,12 +33,12 @@ class AccountController extends AbstractController
             // TODO: possibilité d'edit
         }
 
-        if ($user === null) {
-            return $this->redirectToRoute('app_login');
-        }
 
         $articles = $articleRepository->findBy(["auteur_id" => $id]);
-        return $this->render('account.html.twig', ['user' => $user,  'articles' => $articles]);
+        return $this->render('account.html.twig', ['user' => $user, 'articles' => $articles]);
     }
 }
+
+
+
 

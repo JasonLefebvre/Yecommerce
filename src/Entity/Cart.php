@@ -13,46 +13,41 @@ class Cart implements \Stringable
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
+    #[ORM\Column(type: 'integer')]
+    private ?int $user_id = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Article $article = null;
+    #[ORM\Column(type: 'integer')]
+    private ?int $article_id = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUser(): ?User
+    public function getUserId(): ?int
     {
-        return $this->user;
+        return $this->user_id;
     }
 
-    public function setUser(?User $user): static
+    public function setUserId(?int $user_id): static
     {
-        $this->user = $user;
-
+        $this->user_id = $user_id;
         return $this;
     }
 
-    public function getArticle(): ?Article
+    public function getArticleId(): ?int
     {
-        return $this->article;
+        return $this->article_id;
     }
 
-    public function setArticle(?Article $article): static
+    public function setArticleId(?int $article_id): static
     {
-        $this->article = $article;
-
+        $this->article_id = $article_id;
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        // TODO: Implement __toString() method.
-        return (string)$this;
+        return (string) $this->id;
     }
 }
