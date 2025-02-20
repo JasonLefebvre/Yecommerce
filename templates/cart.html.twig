@@ -1,22 +1,70 @@
-<!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}Panier{% endblock %}</title>
-     {% block javascripts %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <title>Votre Panier</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    {% block javascripts %}
         {% block importmap %}
             {{ importmap('app') }}
         {% endblock %}
     {% endblock %}
 </head>
-{% include 'navbar.html.twig' %}
+
 <body>
-{% block body %}
-    <div class="container">
-        <h1>Panier de []</h1>
-{% endblock %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Votre Panier</h1>
+
+        {% if cartItems is not empty %}
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped text-center">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Article</th>
+                            <th>Prix Unitaire</th>
+                            <th>Quantité</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for articleId, item in cartItems %}
+                        <tr>
+                            <td>{{ item.article.nom }}</td>
+                            <td>{{ item.article.prix }}€</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.quantity * item.article.prix }}€</td>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <form action="{{ path('cart_add', {'id': articleId}) }}" method="post">
+                                        <button type="submit" class="btn btn-sm btn-success me-2">+</button>
+                                    </form>
+                                    <form action="{{ path('cart_remove', {'id': articleId}) }}" method="POST">
+                                        <button type="submit" class="btn btn-sm btn-danger">-</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="{{ path('validate') }}" class="btn btn-warning">Valider la commande</a>
+            </div>
+        {% else %}
+            <p class="text-center text-muted">Votre panier est vide.</p>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

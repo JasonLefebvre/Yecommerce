@@ -21,4 +21,16 @@ class CartService
         $this->em->persist($cart);
         $this->em->flush();
     }
+    public function removeFromCart(int $articleId, int $userId): void
+    {
+        // Rechercher le panier correspondant à cet article et utilisateur
+        $cart = $this->em->getRepository(Cart::class)
+            ->findOneBy(['article_id' => $articleId, 'user_id' => $userId]);
+
+        if ($cart) {
+            // Si l'article existe dans le panier, on le supprime
+            $this->em->remove($cart);
+            $this->em->flush();
+        }
+    }
 }

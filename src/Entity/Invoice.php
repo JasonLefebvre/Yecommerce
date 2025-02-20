@@ -14,9 +14,8 @@ class Invoice
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
+    #[ORM\Column(type: "integer")]
+    private ?int $user_id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateTransaction = null;
@@ -38,15 +37,14 @@ class Invoice
         return $this->id;
     }
 
-    public function getUser(): ?User
+    public function getUserId(): ?int
     {
-        return $this->user;
+        return $this->user_id;
     }
 
-    public function setUser(?User $user): static
+    public function setUserId(int $user_id): static
     {
-        $this->user = $user;
-
+        $this->user_id = $user_id;
         return $this;
     }
 
@@ -58,7 +56,6 @@ class Invoice
     public function setDateTransaction(\DateTimeInterface $dateTransaction): static
     {
         $this->dateTransaction = $dateTransaction;
-
         return $this;
     }
 
@@ -70,7 +67,6 @@ class Invoice
     public function setMontant(float $montant): static
     {
         $this->montant = $montant;
-
         return $this;
     }
 
@@ -82,7 +78,6 @@ class Invoice
     public function setAdresseFacturation(string $adresseFacturation): static
     {
         $this->adresseFacturation = $adresseFacturation;
-
         return $this;
     }
 
@@ -94,7 +89,6 @@ class Invoice
     public function setVilleFacturation(string $villeFacturation): static
     {
         $this->villeFacturation = $villeFacturation;
-
         return $this;
     }
 
@@ -106,7 +100,6 @@ class Invoice
     public function setCodePostalFacturation(string $codePostalFacturation): static
     {
         $this->codePostalFacturation = $codePostalFacturation;
-
         return $this;
     }
 }
