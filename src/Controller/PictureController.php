@@ -18,21 +18,19 @@ class PictureController extends AbstractController
 
     public function getPicture($id): Response
     {
-        // Trouver l'article par son ID
         $article = $this->entityManager->getRepository(Article::class)->find($id);
 
-        // Vérifier si l'article existe et s'il a une image
         if (!$article || !$article->getPicture()) {
             throw $this->createNotFoundException('Image non trouvée.');
         }
 
-        // Récupérer le contenu binaire de l'image
-        $image = $article->getPicture();
+        // 🔍 Convertir le BLOB en chaîne binaire
+        $image = stream_get_contents($article->getPicture());
 
-        // Renvoyer la réponse avec les en-têtes appropriés
         return new Response($image, 200, [
-            'Content-Type' => 'image/jpeg',  // Adaptez le type MIME selon votre image
-            'Content-Length' => strlen($image),
+            'Content-Type' => 'image/jpeg',
         ]);
     }
+
+
 }
