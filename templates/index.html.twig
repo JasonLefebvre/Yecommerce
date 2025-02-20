@@ -27,9 +27,11 @@
                         <p class="card-text">{{ article.description }}</p>
                         <p class="card-text text-success fw-bold">{{ article.prix }} €</p>
                         <p class="card-text"><small class="text-muted">Publié le {{ article.datePublication|date("d/m/Y") }}</small></p>
+                        <a href="{{ path('article_detail', {'id': article.id}) }}" class="btn btn-warning"> Détail </a>
                     </div>
                 </div>
             </div>
+            </a>
             {% endfor %}
         </div>
     </div>

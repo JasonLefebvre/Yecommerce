@@ -38,3 +38,6 @@ article_image:
     path: /article/{id}/image
     controller: App\Controller\PictureController::getPicture
 
+article_detail:
+    path: /article/{id}
+    controller: App\Controller\DetailController::show

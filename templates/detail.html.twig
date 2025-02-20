@@ -1,25 +1,40 @@
-<!doctype html>
-<html lang="fr">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}ECommerce- Detail{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <title>Lepirecoin</title>
+    
+    {% block javascripts %}
+        {% block importmap %}
+            {{ importmap('app') }}
+        {% endblock %}
+    {% endblock %}
 </head>
+
 {% include 'navbar.hmtl.twig' %}
+
 <body>
-{% block body %}
-<div class="container">
-    <h1>YE-commerce</h1>
-    <div class="navbar">
-        <a href="/">Accueil</a>
-        <a href="/sell">Vendre</a>
-        <a href="/cart">Panier</a>
-        <a href="/account">Compte</a>
-    </div>
-    {{ articles }}
-</div>
-{% endblock %}
+    {% block body %}
+        <div class="container mt-4">
+            <div class="card shadow-sm">
+                {% if article.picture %}
+                    <img src="{{ path('article_image', {'id': article.id}) }}" class="card-img-top" alt="{{ article.nom }}">
+                {% endif %}
+                <div class="card-body">
+                    <h1 class="card-title">{{ article.nom }}</h1>
+                    <p class="card-text">{{ article.description }}</p>
+                    <p class="card-text"><strong>Prix :</strong> {{ article.prix }} €</p>
+                    <p class="card-text"><strong>Vendu par :</strong> {{ user.username }}</p>
+                    <p class="card-text"><strong>Date de publication :</strong> {{ article.datePublication|date('d/m/Y H:i') }}</p>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+
 </body>
+
 </html>
