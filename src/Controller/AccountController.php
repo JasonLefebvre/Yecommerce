@@ -9,14 +9,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AccountController extends AbstractController
 {
-    public function account(Request $request, EntityManagerInterface $entityManager): Response
+    public function account(EntityManagerInterface $entityManager): Response
     {
-//        $user = $entityManager->getRepository(User::class)->find(1);
+        $user = $this->getUser();
 
-        $articles = $entityManager->getRepository(Article::class)->findBy(["auteur" => 1]);
-        return $this->render('account.html.twig', ["articles" => $articles]); //["user" => $user]
+        if ($user === null) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $articles = $entityManager->getRepository(Article::class)->find($user);
+        return $this->render('account.html.twig', ['user' => $user,  'articles' => $articles]);
     }
 }

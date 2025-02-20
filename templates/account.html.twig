@@ -10,7 +10,7 @@
 <body>
 {% block body %}
     <div class="container">
-{#        <h1>Compte de {{ user.username }}</h1>#}
+        <h1>Compte de {{ user.username }}</h1>
         <div class="navbar">
             <a href="/">Accueil</a>
             <a href="/sell">Vendre</a>
@@ -19,8 +19,8 @@
         </div>
 
         <div class="infos">
-{#            <div class="account-name">{{ user.userame }}</div>#}
-{#            <div class="account-email">{{ user.email }}</div>#}
+            <div class="account-name">{{ user.username }}</div>
+            <div class="account-email">{{ user.email }}</div>
             <div class="account-articles">
                 {% for article in articles %}
                     <br>
