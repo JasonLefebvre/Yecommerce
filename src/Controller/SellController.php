@@ -31,6 +31,8 @@ class SellController extends AbstractController
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
+        $user = null;
+
         if ($form->isSubmitted() && $form->isValid()) {
             // Récupérer l'utilisateur connecté
             $user = $this->getUser();

@@ -24,15 +24,13 @@ edit:
     path: /edit
     controller: App\Controller\EditController::index # TODO : ce que renvoie la classe
 
-#account:
-#    path: /account
-#    controller: App\Controller\AccountController::account # TODO : ce que renvoie la classe
+account:
+    path: /account
+    controller: App\Controller\AccountController::account # TODO : ce que renvoie la classe
 
 admin:
     path: /admin
     controller: App\Controller\AdminController::index # TODO : ce que renvoie la classe
-
-
 
 article_image:
     path: /article/{id}/image

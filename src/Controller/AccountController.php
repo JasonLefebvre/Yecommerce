@@ -10,8 +10,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccountController extends AbstractController
 {
-    #[Route('/account/{id}', name: 'account')]
-    public function account(ArticleRepository $articleRepository, UserRepository $userRepository, int $id): Response
+
+    #[Route('/account', name: 'account')]
+    public function account(ArticleRepository $articleRepository, UserRepository $userRepository): Response
+    {
+        $user = $this->getUser();
+
+        if ($user === null) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $articles = $articleRepository->findBy(["auteur_id" => $user->getId()]);
+        return $this->render('account.html.twig', ['user' => $user,  'articles' => $articles]);
+    }
+
+    #[Route('/account/{id}', name: 'accountPerId')]
+    public function userPerId(ArticleRepository $articleRepository, UserRepository $userRepository, int $id): Response
     {
         $user = $userRepository->find($id);
 
@@ -27,3 +41,4 @@ class AccountController extends AbstractController
         return $this->render('account.html.twig', ['user' => $user,  'articles' => $articles]);
     }
 }
+

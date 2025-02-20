@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}Compte{% endblock %}</title> <!-- ajouter la variable qui fait récupérer le nom du compte -->
+    <title>{% block title %}Compte - {{ user.username }} {% endblock %}</title> <!-- ajouter la variable qui fait récupérer le nom du compte -->
     {% block javascripts %}
         {% block importmap %}
             {{ importmap('app') }}
