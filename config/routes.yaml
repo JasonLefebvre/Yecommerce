@@ -8,10 +8,6 @@ home:
     path: /
     controller: App\Controller\HomeController::index # TODO : ce que renvoie la classe
 
-sell:
-    path: /sell
-    controller: App\Controller\SellController::index # TODO : ce que renvoie la classe
-
 detail:
     path: /detail
     controller: App\Controller\DetailController::showArticles # TODO : ce que renvoie la classe
@@ -36,10 +32,8 @@ admin:
     path: /admin
     controller: App\Controller\AdminController::index # TODO : ce que renvoie la classe
 
-register:
-    path: /register
-    controller: App\Controller\RegisterController::register
 
-login:
-    path: /login
-    controller: App\Controller\LoginController::login
+
+get_picture:
+    path: /media/{entityType}/{id}/picture
+    controller: App\Controller\MediaController::getPicture

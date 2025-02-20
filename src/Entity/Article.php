@@ -1,13 +1,11 @@
 <?php
-
 namespace App\Entity;
 
-use App\Repository\ArticleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ArticleRepository::class)]
-class Article implements \Stringable
+#[ORM\Entity]
+class Article
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -26,11 +24,11 @@ class Article implements \Stringable
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $datePublication = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $auteur = null;
+    // Modification de "auteur" en "auteur_id" pour stocker un integer
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
+    private ?int $auteur_id = null;
 
-    #[ORM\Column(type: Types::BLOB)]
+    #[ORM\Column(type: Types::BLOB, nullable: true)]
     private $picture = null;
 
     public function getId(): ?int
@@ -79,29 +77,24 @@ class Article implements \Stringable
         return $this->datePublication;
     }
 
-    public function setDatePublication(\DateTimeInterface $datePublication): static
+    public function setDatePublication(): self
     {
-        $this->datePublication = $datePublication;
-
+        $this->datePublication = new \DateTimeImmutable();
         return $this;
     }
 
-    public function getAuteur(): ?User
+    // Accesseur pour "auteur_id" (le nouvel ID de l'auteur)
+    public function getAuteurId(): ?int
     {
-        return $this->auteur;
+        return $this->auteur_id;
     }
 
-    public function setAuteur(?User $auteur): static
+    // Modificateur pour "auteur_id"
+    public function setAuteurId(int $auteur_id): static
     {
-        $this->auteur = $auteur;
+        $this->auteur_id = $auteur_id;
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        // TODO: Implement __toString() method.
-        return $this->nom;
     }
 
     public function getPicture()
@@ -111,8 +104,10 @@ class Article implements \Stringable
 
     public function setPicture($picture): static
     {
-        $this->picture = $picture;
-
+        // Si l'image est téléchargée en tant qu'objet File, la convertir en binaire
+        if ($picture instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
+            $this->picture = file_get_contents($picture->getPathname());  // Lire le contenu du fichier
+        }
         return $this;
     }
 }
