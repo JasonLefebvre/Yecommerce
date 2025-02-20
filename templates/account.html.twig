@@ -6,21 +6,46 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}Compte{% endblock %}</title> <!-- ajouter la variable qui fait récupérer le nom du compte -->
+    {% block javascripts %}
+        {% block importmap %}
+            {{ importmap('app') }}
+        {% endblock %}
+    {% endblock %}
 </head>
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-left mb-2 mb-lg-0 text-white text-decoration-none">
+          LePireCoin
+        </a>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="/" class="nav-link px-2 text-white">Accueil</a></li>
+          <li><a href="/sell" class="nav-link px-2 text-white">Vendre</a></li>
+          <li><a href="/cart" class="nav-link px-2 text-white">Panier</a></li>
+          <li><a href="/account" class="nav-link px-2 text-secondary">Compte</a></li>
+        </ul>
+
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+        </form>
+
+        <div class="text-end">
+          <button type="button" action="/Login" class="btn btn-outline-light me-2" onclick="window.location.href='{{ path('app_login') }}'">Connexion</button>
+          <button type="button" class="btn btn-warning" onclick="window.location.href='{{ path('app_register') }}'">Inscription</button>
+
+        </div>
+      </div>
+    </div>
+  </header>
 <body>
 {% block body %}
     <div class="container">
-        <h1>Compte de {{ user.username }}</h1>
-        <div class="navbar">
-            <a href="/">Accueil</a>
-            <a href="/sell">Vendre</a>
-            <a href="/cart">Panier</a>
-            <a href="/account">Compte</a>
-        </div>
+{#        <h1>Compte de {{ user.username }}</h1>#}
 
         <div class="infos">
-            <div class="account-name">{{ user.username }}</div>
-            <div class="account-email">{{ user.email }}</div>
+{#            <div class="account-name">{{ user.userame }}</div>#}
+{#            <div class="account-email">{{ user.email }}</div>#}
             <div class="account-articles">
                 {% for article in articles %}
                     <br>
