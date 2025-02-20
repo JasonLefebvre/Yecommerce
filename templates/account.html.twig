@@ -41,15 +41,21 @@
 <body>
 {% block body %}
     <div class="container">
-{#        <h1>Compte de {{ user.username }}</h1>#}
+        <h1>Compte de {{ user.username }}</h1>
 
         <div class="infos">
-{#            <div class="account-name">{{ user.userame }}</div>#}
-{#            <div class="account-email">{{ user.email }}</div>#}
+            <div class="account-name">Nom : {{ user.username }}</div>
+            <div class="account-email">Email : {{ user.email }}</div>
             <div class="account-articles">
                 {% for article in articles %}
                     <br>
-                    <div>{{ article.nom }}</div>
+                    <div class="article">
+                        <img src="{{ article.picture }}" alt="images">
+                        <div>{{ article.nom }}</div>
+                        <div>{{ article.description }}</div>
+                        <div>{{ article.prix }}€</div>
+                        <div>{{ article.datePublication|date("d/m/Y") }}</div>
+                    </div>
                 {% endfor %}
             </div>
         </div>

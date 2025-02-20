@@ -28,9 +28,9 @@ edit:
     path: /edit
     controller: App\Controller\EditController::index # TODO : ce que renvoie la classe
 
-account:
-    path: /account
-    controller: App\Controller\AccountController::account # TODO : ce que renvoie la classe
+#account:
+#    path: /account
+#    controller: App\Controller\AccountController::account # TODO : ce que renvoie la classe
 
 admin:
     path: /admin
