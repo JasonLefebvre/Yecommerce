@@ -19,26 +19,15 @@
             <a href="/account">Compte</a>
         </div>
         <div class="articles">
+            {% for article in articles %}
             <div class="article">
-                <img src="https://leagueofitems.com/images/items/256/3072.webp" alt="images">
-                <div>Bloodthirster</div>
+{#                <img src="{{ article.image }}" alt="images">#}
+                <div>{{ article.nom }}</div>
+                <div>{{ article.description }}</div>
+                <div>{{ article.prix }}</div>
+                <div>{{ article.datePublication|date("d/m/Y") }}</div>
             </div>
-            <div class="article">
-                <img src="https://leagueofitems.com/images/items/256/3072.webp" alt="images">
-                <div>Bloodthirster</div>
-            </div>
-            <div class="article">
-                <img src="https://leagueofitems.com/images/items/256/3072.webp" alt="images">
-                <div>Bloodthirster</div>
-            </div>
-            <div class="article">
-                <img src="https://leagueofitems.com/images/items/256/3072.webp" alt="images">
-                <div>Bloodthirster</div>
-            </div>
-            <div class="article">
-                <img src="https://leagueofitems.com/images/items/256/3072.webp" alt="images">
-                <div>Bloodthirster</div>
-            </div>
+            {% endfor %}
         </div>
     </div>
     {% endblock %}

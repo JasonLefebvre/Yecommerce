@@ -2,16 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    public function index(): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $test = "chose";
-        $test2 = "bidute";
-        return $this->render('index.html.twig', ["test" => $test, "test2"=> $test2]);
+        $articles = $entityManager->getRepository(Article::class)->findBy([], ['datePublication' => 'DESC']);
+        return $this->render('index.html.twig', ["articles" => $articles]);
     }
 }
