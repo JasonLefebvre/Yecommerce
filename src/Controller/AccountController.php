@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Form\EditAccountType;
 use App\Repository\ArticleRepository;
+use App\Repository\InvoiceRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,16 +16,31 @@ class AccountController extends AbstractController
 {
 
     #[Route('/account', name: 'account')]
-    public function account(ArticleRepository $articleRepository, UserRepository $userRepository): Response
+    public function account(ArticleRepository $articleRepository, InvoiceRepository $invoiceRepository, EntityManagerInterface $entityManager, Request $request): Response
     {
         $user = $this->getUser();
 
-        if ($user === null) {
+        if (!$user) {
             return $this->redirectToRoute('app_login');
         }
 
+        $factures = $invoiceRepository->findBy(['user' => $user->getId()]);
         $articles = $articleRepository->findBy(["auteur_id" => $user->getId()]);
-        return $this->render('account.html.twig', ['user' => $user, 'articles' => $articles]);
+
+        $form = $this
+            ->createForm(EditAccountType::class, $user)
+            ->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $password = $form->get("password")->getData();
+            if ($password) {
+                $user->setPassword(password_hash($password,  PASSWORD_BCRYPT));
+            }
+            $entityManager->flush();
+            $this->addFlash('success', "Votre profil a bien été changé !");
+            return $this->redirectToRoute('account');
+        }
+
+        return $this->render('account.html.twig', ['user' => $user, 'articles' => $articles, "factures" => $factures, "form" => $form->createView()]);
     }
 
     #[Route('/account/{id}', name: 'accountPerId')]
