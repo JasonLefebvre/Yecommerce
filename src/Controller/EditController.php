@@ -4,6 +4,8 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
+use App\Form\EditType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,6 +41,22 @@ class EditController extends AbstractController
             return $this->redirectToRoute('edit', ['id' => $article->getId()]);
         }
 
-        return $this->render('edit.html.twig', ["article" => $article]);
+        $form = $this
+            ->createForm(ArticleType::class, $article)
+            ->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $article->setNom($form->get('nom')->getData());
+            $article->setDescription($form->get('description')->getData());
+            $article->setPrix($form->get('prix')->getData());
+            $article->setImage($form->get('picture')->getData());
+
+            $entityManager->flush();
+            $this->addFlash('success', "Votre article a bien été changé !");
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('edit.html.twig', ["article" => $article, "form" => $form->createView()]);
     }
 }
