@@ -34,6 +34,10 @@ article_image:
     path: /article/{id}/image
     controller: App\Controller\PictureController::getPicture
 
+profil_picture:
+    path: /user/{id}/image
+    controller: App\Controller\PictureController::getProfilePicture
+
 article_detail:
     path: /article/{id}
     controller: App\Controller\DetailController::show

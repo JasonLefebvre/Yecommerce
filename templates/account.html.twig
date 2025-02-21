@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}LePireCoin - {{ user.username }} {% endblock %}</title> <!-- ajouter la variable qui fait récupérer le nom du compte -->
+    <title>{% block title %}LePireCoin - {{ user.username }}{% endblock %}</title>
+
     {% block javascripts %}
         {% block importmap %}
             {{ importmap('app') }}
@@ -13,60 +13,128 @@
     {% endblock %}
 </head>
 
+<body>
 {% block body %}
-{% include 'navbar.html.twig' %}
-    <div class="container">
-        <h1>Compte de {{ user.username }}</h1>
-
-        <div class="infos">
-            <div class="account-name">Nom : {{ user.username }}</div>
-            <div class="account-email">Email : {{ user.email }}</div>
-            <div class="account-articles">
-                {% for article in articles %}
-                    <br>
-                    <div class="article">
-                        <img src="{{ path('article_image', {'id': article.id}) }}" class="card-img-top" alt="{{ article.nom }}">
-                        <div>{{ article.nom }}</div>
-                        <div>{{ article.description }}</div>
-                        <div>{{ article.prix }}€</div>
-                        <div>{{ article.datePublication|date("d/m/Y") }}</div>
+    {% include 'navbar.html.twig' %}
+    
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                
+                <!-- Carte Profil Utilisateur -->
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h2>Compte de {{ user.username }}</h2>
                     </div>
-                {% endfor %}
-            </div>
-            
-            {% if id is not null %}
-            {% else %}
-                {# Sinon, afficher les factures #}
-                <div class="account-invoices">
-                    {% for facture in factures %}
-                        <table>
-                            <caption>Facture du : {{ facture.dateTransaction|date("d/m/Y") }}</caption>
-                            <thead>
-                                <tr scope="col">Acheteur</tr>
-                                <tr scope="col">Montant</tr>
-                                <tr scope="col">Adresse</tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">{{ user.username }}</th>
-                                    <td>{{ facture.montant }}€</td>
-                                    <td>{{ facture.adresseFacturation }}, {{ facture.villeFacturation }} - {{ facture.codePostalFacturation }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    {% endfor %}
+                    <div class="card-body text-center">
+                        <img src="{{ path('profil_picture', {'id': user.id}) }}" 
+                             class="rounded-circle border border-3" 
+                             style="width: 150px; height: 150px; object-fit: cover;" 
+                             alt="Photo de profil">
+                        <h4 class="mt-3">{{ user.username }}</h4>
+                        <p class="text-muted">{{ user.email }}</p>
+                    </div>
                 </div>
-            
 
-            <div class="edit-account">
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
-                {{ form_end(form) }}
+                <!-- Liste des articles -->
+                <div class="card mt-4">
+                    <div class="card-header bg-secondary text-white">
+                        <h3>Articles publiés</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            {% for article in articles %}
+                                <div class="col-md-6 mb-3">
+                                    <div class="card h-100">
+                                        <img src="{{ path('article_image', {'id': article.id}) }}" 
+                                             class="card-img-top" 
+                                             alt="{{ article.nom }}" 
+                                             style="height: 150px; object-fit: cover;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ article.nom }}</h5>
+                                            <p class="card-text text-muted">{{ article.description }}</p>
+                                            <div class="fw-bold">{{ article.prix }}€</div>
+                                            <small class="text-muted">{{ article.datePublication|date("d/m/Y") }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <p class="text-center text-muted">Aucun article publié.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                {% if id is not null %}
+                    <!-- Affichage en mode visite -->
+                {% else %}
+                    <!-- Factures -->
+                    <div class="card mt-4">
+                        <div class="card-header bg-dark text-white">
+                            <h3>Historique des Factures</h3>
+                        </div>
+                        <div class="card-body">
+                            {% if factures is empty %}
+                                <p class="text-center text-muted">Aucune facture disponible.</p>
+                            {% else %}
+                                <table class="table table-bordered table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Acheteur</th>
+                                            <th>Montant</th>
+                                            <th>Adresse</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for facture in factures %}
+                                            <tr>
+                                                <td>{{ facture.dateTransaction|date("d/m/Y") }}</td>
+                                                <td>{{ user.username }}</td>
+                                                <td>{{ facture.montant }}€</td>
+                                                <td>{{ facture.adresseFacturation }}, {{ facture.villeFacturation }} - {{ facture.codePostalFacturation }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Modifier le profil -->
+                    <div class="card mt-4">
+                        <div class="card-header bg-info text-white">
+                            <h3>Modifier le profil</h3>
+                        </div>
+                        <div class="card-body">
+                            {{ form_start(form) }}
+                            <div class="mb-3">
+                                {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_widget(form.password.first, {'attr': {'class': 'form-control', 'placeholder': 'Nouveau mot de passe'}}) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_widget(form.password.second, {'attr': {'class': 'form-control', 'placeholder': 'Confirmer le mot de passe'}}) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_widget(form.profilPicture, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success">Enregistrer</button>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                {% endif %}
+                
             </div>
-            {% endif %}
         </div>
-
     </div>
+    
 {% endblock %}
 </body>
 </html>
