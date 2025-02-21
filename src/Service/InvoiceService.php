@@ -4,24 +4,28 @@ namespace App\Service;
 use App\Entity\Invoice;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\Security;
 
 class InvoiceService
 {
-    public function __construct(
-        private readonly EntityManagerInterface $em,
-        private readonly Security $security
-    ) {
+    private EntityManagerInterface $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
     }
 
-    public function facturer(Invoice $invoice, User $user): void
+    public function facturer($invoiceData, User $user, float $total): void
     {
-
-        // Ajouter la date de publication
-        $invoice->setDateTransaction(new \DateTime());
+        // Créer la facture
+        $invoice = new Invoice();
         $invoice->setUserId($user->getId());
+        $invoice->setMontant($total);  // Assigner le montant total
+        $invoice->setDateTransaction(new \DateTime());
+        $invoice->setAdresseFacturation($invoiceData->getAdresseFacturation());
+        $invoice->setVilleFacturation($invoiceData->getVilleFacturation());
+        $invoice->setCodePostalFacturation($invoiceData->getCodePostalFacturation());
 
-
+        // Sauvegarder la facture en base de données
         $this->em->persist($invoice);
         $this->em->flush();
     }

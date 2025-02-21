@@ -18,19 +18,19 @@ class Invoice
     private ?int $user_id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateTransaction = null;
+    private ?\DateTimeInterface $date_transaction = null;
 
     #[ORM\Column]
     private ?float $montant = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $adresseFacturation = null;
+    private ?string $adresse_facturation = null;
 
     #[ORM\Column(length: 100)]
-    private ?string $villeFacturation = null;
+    private ?string $ville_facturation = null;
 
     #[ORM\Column(length: 10)]
-    private ?string $codePostalFacturation = null;
+    private ?string $code_postal_facturation = null;
 
     public function getId(): ?int
     {
@@ -50,12 +50,12 @@ class Invoice
 
     public function getDateTransaction(): ?\DateTimeInterface
     {
-        return $this->dateTransaction;
+        return $this->date_transaction;
     }
 
-    public function setDateTransaction(\DateTimeInterface $dateTransaction): static
+    public function setDateTransaction(\DateTimeInterface $date_transaction): static
     {
-        $this->dateTransaction = $dateTransaction;
+        $this->date_transaction = $date_transaction;
         return $this;
     }
 
@@ -72,34 +72,34 @@ class Invoice
 
     public function getAdresseFacturation(): ?string
     {
-        return $this->adresseFacturation;
+        return $this->adresse_facturation;
     }
 
-    public function setAdresseFacturation(string $adresseFacturation): static
+    public function setAdresseFacturation(string $adresse_facturation): static
     {
-        $this->adresseFacturation = $adresseFacturation;
+        $this->adresse_facturation = $adresse_facturation;
         return $this;
     }
 
     public function getVilleFacturation(): ?string
     {
-        return $this->villeFacturation;
+        return $this->ville_facturation;
     }
 
-    public function setVilleFacturation(string $villeFacturation): static
+    public function setVilleFacturation(string $ville_facturation): static
     {
-        $this->villeFacturation = $villeFacturation;
+        $this->ville_facturation = $ville_facturation;
         return $this;
     }
 
     public function getCodePostalFacturation(): ?string
     {
-        return $this->codePostalFacturation;
+        return $this->code_postal_facturation;
     }
 
-    public function setCodePostalFacturation(string $codePostalFacturation): static
+    public function setCodePostalFacturation(string $code_postal_facturation): static
     {
-        $this->codePostalFacturation = $codePostalFacturation;
+        $this->code_postal_facturation = $code_postal_facturation;
         return $this;
     }
 }
