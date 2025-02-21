@@ -12,23 +12,14 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use app\Service\SellService;
 
 class EditController extends AbstractController
 {
 
-//    public function show(int $id, EntityManagerInterface $entityManager): Response
-//    {
-//        // Récupérer l'article en fonction de l'ID
-//        $article = $entityManager->getRepository(Article::class)->find($id);
-//
-//        // Si l'article n'existe pas, on renvoie une erreur 404
-//        if (!$article) {
-//            throw $this->createNotFoundException('L\'article avec l\'ID ' . $id . ' n\'existe pas.');
-//        }
-//
-//        // Afficher l'article dans une page dédiée
-//        return $this->render('detail.html.twig', ['article' => $article]);
-//    }
+    private SellService $sellService;
+
+
 
     #[Route('/edit/{id}', name: 'edit', methods: ['GET', 'POST'])]
     public function editArticle(Request $request, int $id, EntityManagerInterface $entityManager): Response
@@ -61,4 +52,14 @@ class EditController extends AbstractController
 
         return $this->render('edit.html.twig', ["article" => $article, "form" => $form->createView()]);
     }
+
+    #[Route('/edit/{id}/delete', name: 'delete')]
+    function deflComment(Request $request, int $id, EntityManagerInterface $entityManager, )
+    {
+
+        $this->sellService->deleteArticle($id);
+        return $this->redirectToRoute('home');
+
+    }
+
 }
