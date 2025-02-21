@@ -35,10 +35,6 @@
             </div>
             
             {% if id is not null %}
-                {# Si l'ID est présent, ne pas afficher les factures #}
-                <div class="account-invoices">
-                    <p>Les factures ne sont pas disponibles lorsque l'ID est présent dans l'URL.</p>
-                </div>
             {% else %}
                 {# Sinon, afficher les factures #}
                 <div class="account-invoices">

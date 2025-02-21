@@ -54,7 +54,7 @@ class AccountController extends AbstractController
 
 
         $articles = $articleRepository->findBy(["auteur_id" => $id]);
-        return $this->render('account/show.html.twig', [
+        return $this->render('account.html.twig', [
             'user' => $user,
             'articles' => $articles,
             'id' => $id,
