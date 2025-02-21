@@ -8,6 +8,7 @@ use App\Form\ArticleType;
 use App\Form\EditType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,9 +38,7 @@ class EditController extends AbstractController
             throw $this->createNotFoundException("L'article avec l'ID $id n'existe pas.");
         }
 
-        if ($request->isMethod('POST')) {
-            return $this->redirectToRoute('edit', ['id' => $article->getId()]);
-        }
+
 
         $form = $this
             ->createForm(ArticleType::class, $article)
@@ -47,10 +46,13 @@ class EditController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $article->setNom($form->get('nom')->getData());
-            $article->setDescription($form->get('description')->getData());
-            $article->setPrix($form->get('prix')->getData());
-            $article->setImage($form->get('picture')->getData());
+            /** @var UploadedFile $file */
+            $file = $form->get('picture')->getData();
+
+            if ($file) {
+                // Lire le contenu du fichier et le convertir en binaire
+                $article->setPicture($file);
+            }
 
             $entityManager->flush();
             $this->addFlash('success', "Votre article a bien été changé !");
