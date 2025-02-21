@@ -40,7 +40,7 @@ class AccountController extends AbstractController
             return $this->redirectToRoute('account');
         }
 
-        return $this->render('account.html.twig', ['user' => $user, 'articles' => $articles, "factures" => $factures, "form" => $form->createView()]);
+        return $this->render('account.html.twig', ['user' => $user, 'articles' => $articles, "factures" => $factures, "form" => $form->createView(), 'id' => null]);
     }
 
     #[Route('/account/{id}', name: 'accountPerId')]
@@ -54,7 +54,11 @@ class AccountController extends AbstractController
 
 
         $articles = $articleRepository->findBy(["auteur_id" => $id]);
-        return $this->render('account.html.twig', ['user' => $user, 'articles' => $articles]);
+        return $this->render('account/show.html.twig', [
+            'user' => $user,
+            'articles' => $articles,
+            'id' => $id,
+        ]);
     }
 }
 

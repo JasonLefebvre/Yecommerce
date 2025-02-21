@@ -33,30 +33,41 @@
                     </div>
                 {% endfor %}
             </div>
-            <div class="account-invoices">
-                {% for facture in factures %}
-                    <table>
-                        <caption>Facture du : {{ facture.dateTransaction|date("d/m/Y") }}</caption>
-                    <thead>
-                    <tr scope="col">Acheteur</tr>
-                    <tr scope="col">Montant</tr>
-                    <tr scope="col">Adresse</tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">{{ user.username  }}</th>
-                        <td>{{ facture.montant }}€</td>
-                        <td>{{ facture.adresseFacturation }}, {{ facture.villeFacturation }} - {{ facture.codePostalFacturation }}</td>
-                    </tr>
-                    </tbody>
-                    </table>
-                {% endfor %}
-            </div>
+            
+            {% if id is not null %}
+                {# Si l'ID est présent, ne pas afficher les factures #}
+                <div class="account-invoices">
+                    <p>Les factures ne sont pas disponibles lorsque l'ID est présent dans l'URL.</p>
+                </div>
+            {% else %}
+                {# Sinon, afficher les factures #}
+                <div class="account-invoices">
+                    {% for facture in factures %}
+                        <table>
+                            <caption>Facture du : {{ facture.dateTransaction|date("d/m/Y") }}</caption>
+                            <thead>
+                                <tr scope="col">Acheteur</tr>
+                                <tr scope="col">Montant</tr>
+                                <tr scope="col">Adresse</tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">{{ user.username }}</th>
+                                    <td>{{ facture.montant }}€</td>
+                                    <td>{{ facture.adresseFacturation }}, {{ facture.villeFacturation }} - {{ facture.codePostalFacturation }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    {% endfor %}
+                </div>
+            
+
             <div class="edit-account">
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
                 {{ form_end(form) }}
             </div>
+            {% endif %}
         </div>
 
     </div>
