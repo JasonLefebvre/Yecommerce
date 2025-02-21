@@ -34,6 +34,12 @@
                     <form action="{{ path('cart_add', {'id': article.id}) }}" method="post">
                         <button type="submit" class="btn btn-primary">Ajouter au panier</button>
                     </form>
+                    <br>
+                    {% if connectedUser.id == user.id %}
+                        <form action="{{ path('edit', {'id': article.id}) }}" method="post">
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
         </div>

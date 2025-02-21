@@ -6,31 +6,31 @@ controllers:
 
 home:
     path: /
-    controller: App\Controller\HomeController::index # TODO : ce que renvoie la classe
+    controller: App\Controller\HomeController::index
 
 detail:
     path: /detail
-    controller: App\Controller\DetailController::showArticles # TODO : ce que renvoie la classe
+    controller: App\Controller\DetailController::showArticles
 
 cart:
     path: /cart
-    controller: App\Controller\CartController::index # TODO : ce que renvoie la classe
+    controller: App\Controller\CartController::index
 
 validate:
     path: /cart/validate
-    controller: App\Controller\ValidateController::index # TODO : ce que renvoie la classe
+    controller: App\Controller\ValidateController::index
 
 edit:
-    path: /edit
-    controller: App\Controller\EditController::index # TODO : ce que renvoie la classe
+    path: /edit/{id}
+    controller: App\Controller\EditController::editArticle
 
 account:
     path: /account
-    controller: App\Controller\AccountController::account # TODO : ce que renvoie la classe
+    controller: App\Controller\AccountController::account
 
 admin:
     path: /admin
-    controller: App\Controller\AdminController::admin # TODO : ce que renvoie la classe
+    controller: App\Controller\AdminController::admin
 
 article_image:
     path: /article/{id}/image

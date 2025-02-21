@@ -20,8 +20,9 @@ class DetailController extends AbstractController
             throw $this->createNotFoundException('L\'article avec l\'ID ' . $id . ' n\'existe pas.');
         }
         $user = $entityManager->getRepository(User::class)->find($article->getAuteurId());
+        $connectedUser = $this->getUser();
 
         // Afficher l'article dans une page dédiée
-        return $this->render('detail.html.twig', ['article' => $article, 'user' => $user]);
+        return $this->render('detail.html.twig', ['article' => $article, 'user' => $user,  'connectedUser' => $connectedUser]);
     }
 }
