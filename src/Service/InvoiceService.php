@@ -14,16 +14,13 @@ class InvoiceService
         $this->em = $em;
     }
 
-    public function facturer($invoiceData, User $user, float $total): void
+    public function facturer($invoice, User $user, float $total): void
     {
-        // Créer la facture
-        $invoice = new Invoice();
+
         $invoice->setUserId($user->getId());
         $invoice->setMontant($total);  // Assigner le montant total
         $invoice->setDateTransaction(new \DateTime());
-        $invoice->setAdresseFacturation($invoiceData->getAdresseFacturation());
-        $invoice->setVilleFacturation($invoiceData->getVilleFacturation());
-        $invoice->setCodePostalFacturation($invoiceData->getCodePostalFacturation());
+
 
         // Sauvegarder la facture en base de données
         $this->em->persist($invoice);
