@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\ArticleRepository;
 use App\Repository\CartRepository;
 use App\Service\CartService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +20,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/cart/add/{id}', name: 'cart_add', methods: ['POST'])]
-    public function add(int $id, ArticleRepository $articleRepository): Response
+    public function add(int $id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager): Response
     {
         // Récupérer l'article en fonction de l'ID
         $article = $articleRepository->find($id);
@@ -33,7 +34,7 @@ class CartController extends AbstractController
         }
 
         // Utiliser l'identifiant de l'article et de l'utilisateur
-        $this->cartService->addToCart($article->getId(), $user->getId());
+        $this->cartService->addToCart($article->getId(), $user->getId(), $entityManager);
 
         // Redirection après ajout au panier
         return $this->redirectToRoute('cart_show');
@@ -86,7 +87,7 @@ class CartController extends AbstractController
 
 
     #[Route('/cart/remove/{id}', name: 'cart_remove', methods: ['POST'])]
-    public function remove(int $id, ArticleRepository $articleRepository): Response
+    public function remove(int $id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager): Response
     {
         // Récupérer l'article en fonction de l'ID
         $article = $articleRepository->find($id);
@@ -100,7 +101,7 @@ class CartController extends AbstractController
         }
 
         // Utiliser l'identifiant de l'article et de l'utilisateur pour supprimer l'article du panier
-        $this->cartService->removeFromCart($article->getId(), $user->getId());
+        $this->cartService->removeFromCart($article->getId(), $user->getId(), $entityManager);
 
         // Redirection après suppression de l'article
         return $this->redirectToRoute('cart_show');

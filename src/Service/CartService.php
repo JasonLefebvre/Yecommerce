@@ -11,10 +11,10 @@ class CartService
 {
     private CartRepository $cartRepository;
     private ArticleRepository $articleRepository;
-    private EntityManagerInterface $em;
+//    private EntityManagerInterface $em;
 
     public function __construct(
-        EntityManagerInterface $em,
+//        EntityManagerInterface $em,
         Security $security,
         CartRepository $cartRepository,  // Injection de CartRepository
         ArticleRepository $articleRepository  // Injection de ArticleRepository
@@ -23,24 +23,24 @@ class CartService
         $this->articleRepository = $articleRepository;
     }
 
-    public function addToCart(int $articleId, int $userId): void
+    public function addToCart(int $articleId, int $userId, EntityManagerInterface $entityManager): void
     {
         $cart = new Cart();
         $cart->setArticleId($articleId);
         $cart->setUserId($userId);
-        $this->em->persist($cart);
-        $this->em->flush();
+        $entityManager->persist($cart);
+        $entityManager->flush();
     }
 
-    public function removeFromCart(int $articleId, int $userId): void
+    public function removeFromCart(int $articleId, int $userId, EntityManagerInterface $entityManager): void
     {
         // Rechercher le panier correspondant à cet article et utilisateur
-        $cart = $this->cartRepository->findOneBy(['articleId' => $articleId, 'userId' => $userId]);
+        $cart = $this->cartRepository->findOneBy(['article_id' => $articleId, 'user_id' => $userId]);
 
         if ($cart) {
             // Si l'article existe dans le panier, on le supprime
-            $this->em->remove($cart);
-            $this->em->flush();
+            $entityManager->remove($cart);
+            $entityManager>flush();
         }
     }
 
