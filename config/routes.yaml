@@ -30,7 +30,7 @@ account:
 
 admin:
     path: /admin
-    controller: App\Controller\AdminController::index # TODO : ce que renvoie la classe
+    controller: App\Controller\AdminController::admin # TODO : ce que renvoie la classe
 
 article_image:
     path: /article/{id}/image

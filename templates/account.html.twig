@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}Compte - {{ user.username }} {% endblock %}</title> <!-- ajouter la variable qui fait récupérer le nom du compte -->
+    <title>{% block title %}LePireCoin - {{ user.username }} {% endblock %}</title> <!-- ajouter la variable qui fait récupérer le nom du compte -->
     {% block javascripts %}
         {% block importmap %}
             {{ importmap('app') }}
@@ -32,6 +32,30 @@
                         <div>{{ article.datePublication|date("d/m/Y") }}</div>
                     </div>
                 {% endfor %}
+            </div>
+            <div class="account-invoices">
+                {% for facture in factures %}
+                    <table>
+                        <caption>Facture du : {{ facture.dateTransaction|date("d/m/Y") }}</caption>
+                    <thead>
+                    <tr scope="col">Acheteur</tr>
+                    <tr scope="col">Montant</tr>
+                    <tr scope="col">Adresse</tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">{{ facture.user.username }}</th>
+                        <td>{{ facture.montant }}€</td>
+                        <td>{{ facture.adresseFacturation }}, {{ facture.villeFacturation }} - {{ facture.codePostalFacturation }}</td>
+                    </tr>
+                    </tbody>
+                    </table>
+                {% endfor %}
+            </div>
+            <div class="edit-account">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
             </div>
         </div>
 
