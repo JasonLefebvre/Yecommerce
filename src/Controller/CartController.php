@@ -72,8 +72,7 @@ class CartController extends AbstractController
                     ];
                 }
 
-                // Ajouter le sous-total pour cet article
-                $total += $article->getPrix() * $cartItems[$cart->getArticleId()]['quantity'];
+                $total = $this->cartService->getCartTotal($user->getId());
             }
         }
 

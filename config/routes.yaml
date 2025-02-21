@@ -12,9 +12,7 @@ detail:
     path: /detail
     controller: App\Controller\DetailController::showArticles # TODO : ce que renvoie la classe
 
-cart:
-    path: /cart
-    controller: App\Controller\CartController::index # TODO : ce que renvoie la classe
+ # TODO : ce que renvoie la classe
 
 validate:
     path: /cart/validate

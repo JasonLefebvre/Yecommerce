@@ -38,12 +38,16 @@ class ValidateController extends AbstractController
         // Si le formulaire est soumis et valide, facturer
         if ($form->isSubmitted() && $form->isValid()) {
             // Passer le montant total à la méthode facturer
-            $this->invoiceService->facturer($form->getData(), $user, $total);  // Ajoutez le total ici
+            $this->invoiceService->facturer($form->getData(), $user, $total);
+            $this->cartService->clearCart($user->getId());
+            return $this->redirectToRoute('cart_show');
+
         }
 
         return $this->render('validate.html.twig', [
             'form' => $form->createView(),
-            'total' => $total  // Affichez le total dans la vue si nécessaire
+            'total' => $total,  // Affichez le total dans la vue si 
+            'user' => $user
         ]);
     }
 }
