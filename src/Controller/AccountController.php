@@ -11,6 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 class AccountController extends AbstractController
 {
@@ -35,6 +37,15 @@ class AccountController extends AbstractController
             if ($password) {
                 $user->setPassword(password_hash($password, PASSWORD_BCRYPT));
             }
+            /** @var UploadedFile $file */
+            $file = $form->get('profilPicture')->getData();
+
+            if ($file) {
+                // Lire le fichier et le convertir en binaire
+                $binaryData = file_get_contents($file->getPathname());
+                $user->setProfilPicture($binaryData);
+            }
+
             $entityManager->flush();
             $this->addFlash('success', "Votre profil a bien été changé !");
             return $this->redirectToRoute('account');
