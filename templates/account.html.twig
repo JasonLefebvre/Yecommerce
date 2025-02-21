@@ -25,7 +25,7 @@
                 {% for article in articles %}
                     <br>
                     <div class="article">
-                        <img src="{{ article.picture }}" alt="images">
+                        <img src="{{ path('article_image', {'id': article.id}) }}" class="card-img-top" alt="{{ article.nom }}">
                         <div>{{ article.nom }}</div>
                         <div>{{ article.description }}</div>
                         <div>{{ article.prix }}€</div>

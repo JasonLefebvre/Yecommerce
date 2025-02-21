@@ -22,6 +22,7 @@
                 {% for articleId, item in cartItems %}
                     <div class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
+                            <img src="{{ path('article_image', {'id': articleId}) }}" class="card-img-top" alt="{{item.article.nom }}">
                             <h5>{{ item.article.nom }}</h5>
                             <p>{{ item.quantity }} x {{ item.article.prix }}€</p>
                         </div>
