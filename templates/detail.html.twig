@@ -32,8 +32,8 @@
                     <p class="card-text"><strong>Vendu par :</strong> <a href="/account/{{ user.id }}">{{ user.username }}</a></p>
                     <p class="card-text"><strong>Date de publication :</strong> {{ article.datePublication|date('d/m/Y H:i') }}</p>
                     <form action="{{ path('cart_add', {'id': article.id}) }}" method="post">
-                            <button type="submit" class="btn btn-primary">Ajouter au panier</button>
-                        </form>
+                        <button type="submit" class="btn btn-primary">Ajouter au panier</button>
+                    </form>
                 </div>
             </div>
         </div>

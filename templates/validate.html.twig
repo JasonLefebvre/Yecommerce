@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inscription</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    
+    
+
+    {% block javascripts %}
+        {% block importmap %}
+            {{ importmap('app') }}
+        {% endblock %}
+    {% endblock %}
+</head>
+
+<body>
+    {% include 'navbar.html.twig' %}
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h3>Informations de Facturation</h3>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        
+                        <div class="mb-3">
+                            {{ form_label(form.adresseFacturation, 'Adresse de Facturation', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.adresseFacturation, {'attr': {'class': 'form-control', 'placeholder': 'Entrez votre adresse'}}) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.villeFacturation, 'Ville de Facturation', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.villeFacturation, {'attr': {'class': 'form-control', 'placeholder': 'Entrez votre ville'}}) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.codePostalFacturation, 'Code Postal', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.codePostalFacturation, {'attr': {'class': 'form-control', 'placeholder': 'Entrez votre code postal'}}) }}
+                        </div>
+
+                        <div class="d-grid">
+                            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary btn-lg'}}) }}
+                        </div>
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</html>

@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
      <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-    <title>LePireCoin - Home</title>
-
+    <title>Inscription</title>
     {% block javascripts %}
         {% block importmap %}
             {{ importmap('app') }}
@@ -26,9 +25,6 @@
                         <p class="card-text text-success fw-bold">{{ article.prix }} €</p>
                         <p class="card-text"><small class="text-muted">Publié le {{ article.datePublication|date("d/m/Y") }}</small></p>
                         <a href="{{ path('article_detail', {'id': article.id}) }}" class="btn btn-warning"> Détail </a>
-                        <form action="{{ path('cart_add', {'id': article.id}) }}" method="#">
-                            <button type="submit" class="btn btn-primary">Ajouter au panier</button>
-                        </form>
                     </div>
                 </div>
             </div>
