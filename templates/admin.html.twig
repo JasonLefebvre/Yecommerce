@@ -15,5 +15,8 @@
 {% include 'navbar.html.twig' %}
 <body>
 <h1>Admin</h1>
+{% for article in articles %}
+<div>{{ article.nom }}</div>
+{% endfor %}
 </body>
 </html>

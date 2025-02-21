@@ -35,8 +35,8 @@
                         <button type="submit" class="btn btn-primary">Ajouter au panier</button>
                     </form>
                     <br>
-                    {% if connectedUser.id == user.id %}
-                       <a href="/edit/{{ article.id }}"> Edit</a>
+                    {% if connectedUser.id == user.id or "ROLE_ADMIN" in connectedUser.roles %}
+                       <a href="/edit/{{ article.id }}">Edit</a>
                     {% endif %}
                 </div>
             </div>
