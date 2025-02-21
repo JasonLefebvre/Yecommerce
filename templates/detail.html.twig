@@ -36,7 +36,7 @@
                     </form>
                     <br>
                      {% if connectedUser %}
-                    {% if connectedUser.id == user.id %}
+                    {% if connectedUser.id == user.id or "ROLE_ADMIN" in connectedUser.roles%}
                        <a href="/edit/{{ article.id }}"> Edit</a>
                     {% endif %}
                     {% endif %}
