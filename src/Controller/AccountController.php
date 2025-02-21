@@ -24,7 +24,7 @@ class AccountController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $factures = $invoiceRepository->findBy(['user' => $user->getId()]);
+        $factures = $invoiceRepository->findBy(['user_id' => $user->getId()]);
         $articles = $articleRepository->findBy(["auteur_id" => $user->getId()]);
 
         $form = $this
@@ -33,7 +33,7 @@ class AccountController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $form->get("password")->getData();
             if ($password) {
-                $user->setPassword(password_hash($password,  PASSWORD_BCRYPT));
+                $user->setPassword(password_hash($password, PASSWORD_BCRYPT));
             }
             $entityManager->flush();
             $this->addFlash('success', "Votre profil a bien été changé !");
