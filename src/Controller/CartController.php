@@ -2,14 +2,12 @@
 
 namespace App\Controller;
 
-
 use App\Repository\ArticleRepository;
 use App\Repository\CartRepository;
 use App\Service\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 
 class CartController extends AbstractController
 {
@@ -21,7 +19,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/cart/add/{id}', name: 'cart_add', methods: ['POST'])]
-    public function add(int $id, ArticleRepository $articleRepository, Request $request): Response
+    public function add(int $id, ArticleRepository $articleRepository): Response
     {
         // Récupérer l'article en fonction de l'ID
         $article = $articleRepository->find($id);
@@ -36,13 +34,10 @@ class CartController extends AbstractController
 
         // Utiliser l'identifiant de l'article et de l'utilisateur
         $this->cartService->addToCart($article->getId(), $user->getId());
-        // Récupérer la dernière page visitée
-        $referer = $request->headers->get('referer');
 
-        // Redirection après ajout au panier (ajustez la route selon vos besoins)
-        return $this->redirect($referer ?? $this->generateUrl('home'));
+        // Redirection après ajout au panier
+        return $this->redirectToRoute('cart_show');
     }
-
 
     #[Route('/cart', name: 'cart_show')]
     public function showCart(CartRepository $cartRepository, ArticleRepository $articleRepository): Response
@@ -58,6 +53,7 @@ class CartController extends AbstractController
 
         // Tableau pour stocker les articles avec la quantité
         $cartItems = [];
+        $total = 0;
 
         // Regrouper les articles par article_id et calculer la quantité
         foreach ($carts as $cart) {
@@ -74,14 +70,20 @@ class CartController extends AbstractController
                         'quantity' => 1,
                     ];
                 }
+
+                // Ajouter le sous-total pour cet article
+                $total += $article->getPrix() * $cartItems[$cart->getArticleId()]['quantity'];
             }
         }
 
-        // Passer les articles avec leur quantité à la vue
+        // Passer les articles avec leur quantité et le total à la vue
         return $this->render('cart.html.twig', [
             'cartItems' => $cartItems,
+            'total' => $total,
         ]);
     }
+
+
 
     #[Route('/cart/remove/{id}', name: 'cart_remove', methods: ['POST'])]
     public function remove(int $id, ArticleRepository $articleRepository): Response

@@ -21,6 +21,7 @@ class InvoiceService
         $invoice->setDateTransaction(new \DateTime());
         $invoice->setUserId($user->getId());
 
+
         $this->em->persist($invoice);
         $this->em->flush();
     }
